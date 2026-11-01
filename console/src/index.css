@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* 磨砂要有东西可模糊：色块放在内容后面，面板本身保持半透明。 */
+body {
+  margin: 0;
+  background: #d5e3f0;
+  color: #1e293b;
+  font-family: "Microsoft YaHei UI", "PingFang SC", "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(560px 340px at 14% 8%, rgba(86, 168, 236, 0.78), transparent 68%),
+    radial-gradient(520px 360px at 86% 14%, rgba(94, 204, 196, 0.62), transparent 66%),
+    radial-gradient(680px 460px at 64% 78%, rgba(142, 156, 226, 0.55), transparent 68%),
+    radial-gradient(440px 300px at 10% 82%, rgba(255, 255, 255, 0.7), transparent 70%),
+    linear-gradient(165deg, #e8f2f8 0%, #c5d6e8 46%, #d7e6f2 100%);
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+.faceplate,
+.glass {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(40, 70, 110, 0.08),
+    0 18px 40px rgba(30, 55, 90, 0.12);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+}
+
+.faceplate {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.28));
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(36px) saturate(1.6);
+  -webkit-backdrop-filter: blur(36px) saturate(1.6);
+}
+
+.vfd {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 40%),
+    rgba(214, 242, 228, 0.82);
+  color: #0f6b4c;
+  text-shadow: none;
+  box-shadow:
+    inset 0 1px 3px rgba(20, 80, 50, 0.16),
+    inset 0 0 0 1px rgba(15, 107, 76, 0.12);
+  font-family: "Microsoft YaHei UI", "PingFang SC", "Segoe UI", sans-serif;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.led {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  box-shadow: inset 0 1px 2px rgba(40, 60, 90, 0.25);
+}
+
+.led.on {
+  background: #4ade80;
+  box-shadow: 0 0 6px #4ade80, 0 0 16px rgba(74, 222, 128, 0.7);
+  animation: led-breathe 2.2s ease-in-out infinite;
+}
+
+.led.busy {
+  background: #7eb6e8;
+  box-shadow: 0 0 8px rgba(126, 182, 232, 0.85);
+}
+
+@keyframes led-breathe {
+  0%,
+  100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.chip,
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #334155;
+  border-radius: 999px;
+}
+
+.chip {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.key {
+  min-height: 36px;
+  padding: 0 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.key:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.68);
+  border-color: rgba(255, 255, 255, 0.92);
+}
+
+.key:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.key:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.key:focus-visible,
+.recess:focus-visible {
+  outline: 2px solid #3b82c4;
+  outline-offset: 2px;
+}
+
+.key.primary {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(255, 255, 255, 0.9);
+  color: #1d6fbf;
+  font-weight: 600;
+}
+
+.key.primary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.key.primary:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.key[data-active="true"] {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(125, 180, 220, 0.95);
+  color: #0f4c81;
+}
+
+.groove {
+  background:
+    repeating-linear-gradient(to top, transparent 0 6px, rgba(50, 80, 120, 0.2) 6px 7px),
+    linear-gradient(90deg, #c5d2e0, #f4f8fc 50%, #c5d2e0);
+  box-shadow:
+    inset 0 1px 3px rgba(40, 60, 90, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+}
+
+.recess {
+  background: rgba(255, 255, 255, 0.72);
+  color: #1e293b;
+  border: 1px solid rgba(70, 100, 140, 0.18);
+  box-shadow: inset 0 1px 3px rgba(40, 60, 90, 0.1);
+  border-radius: 8px;
+  min-height: 34px;
+  padding: 0 8px;
+}
+
+.screw {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, #ffffff, #c5ced8 46%, #8b97a6);
+  box-shadow: inset 0 0 0 1px rgba(30, 50, 80, 0.45);
+}
+
+.screw::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 3px;
+  height: 1px;
+  background: rgba(30, 50, 80, 0.65);
+  transform: rotate(40deg);
+}
